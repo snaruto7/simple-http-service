@@ -1,0 +1,7 @@
+version: '3'
+services:
+  response-service:
+    build: ./response-service
+    image: response-service
+    ports:
+      - "8080:8080"
