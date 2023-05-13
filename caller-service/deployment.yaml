@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caller-service
+  namespace: http-service
+spec:
+  selector:
+    matchLabels:
+      app: caller-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        cloud: gcp
+        app: caller-service
+    spec:
+      containers:
+      - name: caller-service
+        image: snaruto7/caller-service
+        env:
+        - name: PODNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: ENDPOINT
+          value: 'http://response-service.http-service.svc.cluster.local:8080/data'
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        imagePullPolicy: Always

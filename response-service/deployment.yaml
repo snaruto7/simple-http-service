@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: response-service
+  namespace: http-service
+spec:
+  selector:
+    matchLabels:
+      app: response-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        cloud: gcp
+        app: response-service
+    spec:
+      containers:
+      - name: response-service
+        image: snaruto7/response-service
+        ports:
+          - name: service-port
+            containerPort: 8080
+            protocol: TCP
+        env:
+        - name: PODNAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: response-service
+  namespace: http-service
+spec:
+  ports:
+  - name: service-port
+    port: 8080
+    targetPort: service-port
+  selector:
+    app: response-service
+  type: ClusterIP
