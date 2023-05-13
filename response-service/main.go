@@ -77,7 +77,7 @@ func getNodeZone() string {
 		log.Fatal(err)
 		return ""
 	}
-	req.Header.Add("Metadata-Flavour", "Google")
+	req.Header.Add("Metadata-Flavor", "Google")
 	response, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
