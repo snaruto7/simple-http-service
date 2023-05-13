@@ -63,7 +63,7 @@ func Render(ctx *gin.Context) {
 	nodeInfo.SourcePodName = sourceName
 	nodeInfo.SourceNodeZone = zoneName
 
-	nodeInfo.DestPodName = os.Getenv("POD_NAME")
+	nodeInfo.DestPodName = os.Getenv("PODNAME")
 	nodeZone := strings.Split(getNodeZone(), "/")
 	nodeInfo.DestNodeZone = nodeZone[len(nodeZone)-1]
 

@@ -5,3 +5,14 @@ services:
     image: response-service
     ports:
       - "8080:8080"
+    environment:
+      - PODNAME=localhost-response-service
+  
+  caller-service:
+    build: ./caller-service
+    image: caller-service
+    environment:
+      - PODNAME=localhost-caller-service
+      - ENDPOINT=http://localhost:8080
+    depends_on: 
+    - response-service
