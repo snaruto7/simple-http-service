@@ -22,7 +22,7 @@ jobs:
         go-version: 1.19
 
     - name: Build Response Service
-      run: go build -o response-service -v ./response-service
+      run: cd response-service && go build -v ./...
 
     - name: Build Caller Service
-      run: go build -o caller-service -v ./caller-service
+      run: cd caller-service && go build -v ./...
